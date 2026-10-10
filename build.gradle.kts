@@ -32,10 +32,11 @@ tasks.test {
     listOf("env", "baseUrl").forEach { key ->
         providers.systemProperty(key).orNull?.let { systemProperty(key, it) }
     }
-
     System.getProperties().stringPropertyNames()
         .filter { it.startsWith("cucumber.") }
         .forEach { systemProperty(it, System.getProperty(it)) }
+
+    systemProperty("allure.results.directory", layout.buildDirectory.dir("allure-results").get().asFile.absolutePath)
 
     // Scenarios run in parallel inside a single JVM (see junit-platform.properties,
     // so one fork is intentional: it keeps one Allure results stream and one readiness check.
