@@ -16,11 +16,19 @@ repositories {
 }
 
 dependencies {
-   testImplementation(platform(libs.allure.bom))
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(platform(libs.cucumber.bom))
+    testImplementation(platform(libs.allure.bom))
 
-   // Reporting and test data
-   testImplementation(libs.allure.cucumber7.jvm)
-   testImplementation(libs.allure.rest.assured)
+    // BDD layer: Cucumber on the JUnit 5 platform
+    testImplementation(libs.cucumber.junit.platform.engine)
+    testImplementation(libs.junit.platform.suite)
+
+    // Reporting and test data
+    testImplementation(libs.allure.cucumber7.jvm)
+    testImplementation(libs.allure.rest.assured)
+
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 tasks.withType<JavaCompile>().configureEach {

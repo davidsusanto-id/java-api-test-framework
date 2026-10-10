@@ -1,9 +1,18 @@
 [versions]
+cucumber = "7.20.1"
+junit = "5.11.3"
 allure = "2.29.0"
 
 [libraries]
 # BOMs keep the versions of each family aligned
+cucumber-bom = { module = "io.cucumber:cucumber-bom", version.ref = "cucumber" }
+junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 allure-bom = { module = "io.qameta.allure:allure-bom", version.ref = "allure" }
+
+cucumber-junit-platform-engine = { module = "io.cucumber:cucumber-junit-platform-engine" }
+
+junit-platform-suite = { module = "org.junit.platform:junit-platform-suite" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 
 allure-cucumber7-jvm = { module = "io.qameta.allure:allure-cucumber7-jvm" }
 allure-rest-assured = { module = "io.qameta.allure:allure-rest-assured" }
