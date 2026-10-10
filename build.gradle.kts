@@ -16,7 +16,11 @@ repositories {
 }
 
 dependencies {
+   testImplementation(platform(libs.allure.bom))
 
+   // Reporting and test data
+   testImplementation(libs.allure.cucumber7.jvm)
+   testImplementation(libs.allure.rest.assured)
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -38,7 +42,7 @@ tasks.test {
 
     systemProperty("allure.results.directory", layout.buildDirectory.dir("allure-results").get().asFile.absolutePath)
 
-    // Scenarios run in parallel inside a single JVM (see junit-platform.properties,
+    // Scenarios run in parallel inside a single JVM (see junit-platform.properties),
     // so one fork is intentional: it keeps one Allure results stream and one readiness check.
     maxParallelForks = 1
 

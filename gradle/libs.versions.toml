@@ -1,0 +1,9 @@
+[versions]
+allure = "2.29.0"
+
+[libraries]
+# BOMs keep the versions of each family aligned
+allure-bom = { module = "io.qameta.allure:allure-bom", version.ref = "allure" }
+
+allure-cucumber7-jvm = { module = "io.qameta.allure:allure-cucumber7-jvm" }
+allure-rest-assured = { module = "io.qameta.allure:allure-rest-assured" }
