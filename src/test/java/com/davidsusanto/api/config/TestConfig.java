@@ -15,7 +15,7 @@ import java.util.Properties;
  * or an environment variable ({@code BASE_URL=...}).
  * That is how CI and Docker inject values, including secrets, without committing them.</p>
  */
-public class TestConfig {
+public final class TestConfig {
 
     private static final String DEFAULT_ENV = "public";
     private static final TestConfig INSTANCE = load();

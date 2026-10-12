@@ -14,6 +14,10 @@ import java.nio.file.StandardCopyOption;
  */
 public final class AllureEnvironment {
 
+    private AllureEnvironment() {
+
+    }
+
     public static void write() {
         Path results = Path.of(System.getProperty("allure.results.directory", "build/allure-results"));
         TestConfig config = TestConfig.get();
