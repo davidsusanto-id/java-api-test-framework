@@ -21,7 +21,9 @@ dependencies {
     testImplementation(platform(libs.allure.bom))
 
     // BDD layer: Cucumber on the JUnit 5 platform
+    testImplementation(libs.cucumber.java)
     testImplementation(libs.cucumber.junit.platform.engine)
+    testImplementation(libs.cucumber.picocontainer)
     testImplementation(libs.junit.platform.suite)
 
     // Reporting and test data

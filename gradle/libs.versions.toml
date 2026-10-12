@@ -9,7 +9,9 @@ cucumber-bom = { module = "io.cucumber:cucumber-bom", version.ref = "cucumber" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 allure-bom = { module = "io.qameta.allure:allure-bom", version.ref = "allure" }
 
+cucumber-java = { module = "io.cucumber:cucumber-java" }
 cucumber-junit-platform-engine = { module = "io.cucumber:cucumber-junit-platform-engine" }
+cucumber-picocontainer = { module = "io.cucumber:cucumber-picocontainer" }
 
 junit-platform-suite = { module = "org.junit.platform:junit-platform-suite" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }

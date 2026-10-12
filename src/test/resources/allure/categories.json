@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Service unavailable",
+    "matchedStatuses": [
+      "failed",
+      "broken"
+    ],
+    "messageRegex": "(?s).*(Connection refused|connect timed out|Read timed out|UnknownHost|was not ready within|Expected status code <\\d+> but was <5\\d\\d>).*"
+  },
+  {
+    "name": "Contract violations (JSON schema)",
+    "matchedStatuses": [
+      "failed"
+    ],
+    "messageRegex": "(?s).*JSON schema.*"
+  },
+  {
+    "name": "Unexpected status code",
+    "matchedStatuses": [
+      "failed"
+    ],
+    "messageRegex": "(?s).*Expected status code.*"
+  },
+  {
+    "name": "Response data mismatch",
+    "matchedStatuses": [
+      "failed"
+    ],
+    "messageRegex": "(?s).*(recursively comparing|expected:|expecting).*"
+  },
+  {
+    "name": "Test or framework defects",
+    "matchedStatuses": [
+      "broken"
+    ]
+  }
+]
