@@ -26,6 +26,9 @@ dependencies {
     testImplementation(libs.cucumber.picocontainer)
     testImplementation(libs.junit.platform.suite)
 
+    // HTTP, contract checks and assertions
+    testImplementation(libs.restassured.core)
+
     // Reporting and test data
     testImplementation(libs.allure.cucumber7.jvm)
     testImplementation(libs.allure.rest.assured)

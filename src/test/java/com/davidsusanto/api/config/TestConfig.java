@@ -40,6 +40,18 @@ public final class TestConfig {
         return required("baseUrl");
     }
 
+    public int connectTimeoutMs() {
+        return Integer.parseInt(required("http.connectTimeoutMs"));
+    }
+
+    public int readTimeoutMs() {
+        return Integer.parseInt(required("http.readTimeoutMs"));
+    }
+
+    public int readinessTimeoutSeconds() {
+        return Integer.parseInt(required("readiness.timeoutSeconds"));
+    }
+
     private String required(String key) {
         String value = firstNonBlank(
                 System.getProperty(key),
