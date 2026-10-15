@@ -40,6 +40,14 @@ public final class TestConfig {
         return required("baseUrl");
     }
 
+    public String adminUsername() {
+        return required("admin.password");
+    }
+
+    public String adminPassword() {
+        return required("admin.password");
+    }
+
     public int connectTimeoutMs() {
         return Integer.parseInt(required("http.connectTimeoutMs"));
     }
