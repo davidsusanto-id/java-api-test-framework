@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class AuthClient {
 
-    public Response createToken(String username, String password {
+    public Response createToken(String username, String password) {
         return given().spec(Specs.reported())
                 .body(new AuthRequest(username, password))
                 .when().post("/auth");
