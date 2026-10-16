@@ -28,6 +28,8 @@ dependencies {
 
     // HTTP, contract checks and assertions
     testImplementation(libs.restassured.core)
+    testImplementation(libs.restassured.json.schema.validator)
+    testImplementation(libs.assertj.core)
 
     // Reporting and test data
     testImplementation(libs.allure.cucumber7.jvm)

@@ -1,4 +1,8 @@
 package com.davidsusanto.api.model;
 
-public record AuthRequest(String username, String password) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record AuthRequest(
+        @JsonProperty("username") String username,
+        @JsonProperty("password") String password) {
 }

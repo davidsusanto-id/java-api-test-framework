@@ -3,6 +3,8 @@ cucumber = "7.20.1"
 junit = "5.11.3"
 restassured = "5.5.0"
 allure = "2.29.0"
+jackson = "2.18.2"
+assertj = "3.26.3"
 
 [libraries]
 # BOMs keep the versions of each family aligned
@@ -18,6 +20,10 @@ junit-platform-suite = { module = "org.junit.platform:junit-platform-suite" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 
 restassured-core = { module = "io.rest-assured:rest-assured", version.ref = "restassured" }
+restassured-json-schema-validator = { module = "io.rest-assured:json-schema-validator", version.ref = "restassured" }
 
 allure-cucumber7-jvm = { module = "io.qameta.allure:allure-cucumber7-jvm" }
 allure-rest-assured = { module = "io.qameta.allure:allure-rest-assured" }
+
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }

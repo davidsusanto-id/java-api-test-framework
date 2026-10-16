@@ -41,7 +41,7 @@ public final class TestConfig {
     }
 
     public String adminUsername() {
-        return required("admin.password");
+        return required("admin.username");
     }
 
     public String adminPassword() {
