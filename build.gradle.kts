@@ -29,6 +29,7 @@ dependencies {
     // HTTP, contract checks and assertions
     testImplementation(libs.restassured.core)
     testImplementation(libs.restassured.json.schema.validator)
+    testImplementation(libs.jackson.databind)
     testImplementation(libs.assertj.core)
 
     // Reporting and test data
