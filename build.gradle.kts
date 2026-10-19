@@ -1,5 +1,6 @@
 plugins {
     java
+    id("io.qameta.allure") version "3.0.2"
 }
 
 group = "com.davidsusanto"
@@ -41,6 +42,10 @@ dependencies {
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
+}
+
+tasks.named("copyCategories") {
+    outputs.cacheIf { false }
 }
 
 tasks.test {
