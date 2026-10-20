@@ -36,6 +36,7 @@ dependencies {
     // Reporting and test data
     testImplementation(libs.allure.cucumber7.jvm)
     testImplementation(libs.allure.rest.assured)
+    testImplementation(libs.datafaker)
 
     testRuntimeOnly(libs.junit.platform.launcher)
 }

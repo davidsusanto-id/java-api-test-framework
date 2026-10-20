@@ -4,6 +4,7 @@ import com.davidsusanto.api.client.AuthClient;
 import com.davidsusanto.api.config.TestConfig;
 import com.davidsusanto.api.context.ScenarioContext;
 import com.davidsusanto.api.model.AuthResponse;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
@@ -17,6 +18,11 @@ public class AuthSteps {
     public AuthSteps(ScenarioContext context, AuthClient authClient) {
         this.context = context;
         this.authClient = authClient;
+    }
+
+    @Given("I am authenticated as admin")
+    public void iAmAuthenticatedAsAdmin() {
+        context.token(authClient.adminToken());
     }
 
     @When("I request a token with valid admin credentials")
