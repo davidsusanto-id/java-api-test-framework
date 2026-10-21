@@ -4,6 +4,7 @@ import com.davidsusanto.api.client.BookingClient;
 import com.davidsusanto.api.context.ScenarioContext;
 import com.davidsusanto.api.data.BookingBuilder;
 import com.davidsusanto.api.model.Booking;
+import com.davidsusanto.api.model.BookingId;
 import com.davidsusanto.api.model.CreatedBooking;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,8 +13,10 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.assertj.core.api.SoftAssertions;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static com.davidsusanto.api.data.BookingBuilder.aBooking;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -73,6 +76,21 @@ public class BookingSteps {
         context.response(bookingClient.get(id));
     }
 
+    @When("I search for bookings by the booking's guest name")
+    public void iSearchByGuestName() {
+        Booking booking = context.expectedBooking();
+
+        context.response(bookingClient.search(Map.of(
+                "firstname", booking.firstname(),
+                "lastname", booking.lastname()
+        )));
+    }
+
+    @When("I search for a guest that does not exist")
+    public void iSearchForGuestThatDoesNotExist() {
+        context.response(bookingClient.search(Map.of("lastname", "NoSuchGuest-" + UUID.randomUUID())));
+    }
+
     @When("I update the booking with new details")
     public void iUpdateTheBookingWithNewDetails() {
         Booking replacement = aBooking().build();
@@ -128,5 +146,21 @@ public class BookingSteps {
     public void theBookingShouldNoLongerExist() {
         bookingClient.get(context.bookingId())
                 .then().statusCode(404);
+    }
+
+    @Then("the search results should contain the booking")
+    public void theSearchResultsShouldContainTheBooking() {
+        assertThat(searchResultIds()).contains(context.bookingId());
+    }
+
+    @Then("the search results should be empty")
+    public void theSearchResultsShouldBeEmpty() {
+        assertThat(searchResultIds()).isEmpty();
+    }
+
+    private List<Integer> searchResultIds() {
+        return Arrays.stream(context.response().as(BookingId[].class))
+                .map(BookingId::bookingid)
+                .toList();
     }
 }

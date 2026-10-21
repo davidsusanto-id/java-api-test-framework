@@ -17,6 +17,11 @@ public class BookingClient {
     private static final String BOOKING = "/booking";
     private static final String BOOKING_BY_ID = "/booking/{id}";
 
+    public Response search(Map<String, ?> filters) {
+        return given().spec(Specs.reported()).queryParams(filters)
+                .when().get(BOOKING);
+    }
+
     public Response get(int id) {
         return given().spec(Specs.reported()).pathParam("id", id)
                 .when().get(BOOKING_BY_ID);
