@@ -6,6 +6,7 @@ allure = "2.29.0"
 jackson = "2.18.2"
 assertj = "3.26.3"
 datafaker = "2.4.2"
+slf4j = "2.0.16"
 
 [libraries]
 # BOMs keep the versions of each family aligned
@@ -29,3 +30,4 @@ allure-rest-assured = { module = "io.qameta.allure:allure-rest-assured" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 datafaker = { module = "net.datafaker:datafaker", version.ref = "datafaker" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }

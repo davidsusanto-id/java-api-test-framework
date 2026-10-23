@@ -39,6 +39,7 @@ dependencies {
     testImplementation(libs.datafaker)
 
     testRuntimeOnly(libs.junit.platform.launcher)
+    testRuntimeOnly(libs.slf4j.simple)
 }
 
 tasks.withType<JavaCompile>().configureEach {
