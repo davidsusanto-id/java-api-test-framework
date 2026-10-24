@@ -13,7 +13,7 @@ public record Booking(
         String lastname,
         Integer totalprice,
         Boolean depositpaid,
-        BookingDates bookingDates,
+        BookingDates bookingdates,
         String additionalneeds
 ) {
 }
