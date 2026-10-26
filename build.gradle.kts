@@ -26,6 +26,7 @@ dependencies {
     testImplementation(libs.cucumber.junit.platform.engine)
     testImplementation(libs.cucumber.picocontainer)
     testImplementation(libs.junit.platform.suite)
+    testImplementation(libs.junit.jupiter)
 
     // HTTP, contract checks and assertions
     testImplementation(libs.restassured.core)

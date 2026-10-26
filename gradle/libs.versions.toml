@@ -18,6 +18,7 @@ cucumber-java = { module = "io.cucumber:cucumber-java" }
 cucumber-junit-platform-engine = { module = "io.cucumber:cucumber-junit-platform-engine" }
 cucumber-picocontainer = { module = "io.cucumber:cucumber-picocontainer" }
 
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 junit-platform-suite = { module = "org.junit.platform:junit-platform-suite" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 
