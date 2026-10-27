@@ -20,3 +20,16 @@ allure serve build/alllure-results
 ```
 
 A plain Cucumber HTML report is also written to `build/reports/cucumber/cucumber.html`.
+
+## How it is built
+
+```mermaid
+flowchart LR
+    F[Feature files] --> S[Step definitions]
+    S --> C[ScenarioContext<br/>one per scenario]
+    S --> D[Test data builders]
+    S --> A[API clients]
+    A --> R[Request specs<br/>config, timeouts, Allure filter]
+    R --> API[(Restful-Booker)]
+    S --> V[Assertions<br/>AssertJ and JSON Schema]
+```
