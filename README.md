@@ -33,3 +33,13 @@ flowchart LR
     R --> API[(Restful-Booker)]
     S --> V[Assertions<br/>AssertJ and JSON Schema]
 ```
+
+```
+java-api-test-framework/
+├── gradle/
+│   ├── wrapper/
+│   │   ├── gradle-wrapper.jar          Gradle wrapper binary
+│   │   └── gradle-wrapper.properties   Pins Gradle 9.3.0
+│   └── libs.versions.toml              Version catalog: all dependency versions in one place
+├── src/
+```
