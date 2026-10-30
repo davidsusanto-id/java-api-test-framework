@@ -10,8 +10,8 @@ on:
         required: false
         default: ""
   schedule:
-    # Nightly at 08:00 WIB: catches changes in the public API even when this repo is quiet.
-    - cron: "0 1 * * *"
+  # Nightly at 08:00 WIB: catches changes in the public API even when this repo is quiet.
+#    - cron: "0 1 * * *"
 
 env:
   ALLURE_VERSION: "2.29.0"
