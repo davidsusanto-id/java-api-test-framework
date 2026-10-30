@@ -1,0 +1,146 @@
+name: API Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Cucumber tag expression, e.g. "@smoke" (empty = full suite)'
+        required: false
+        default: ""
+  schedule:
+    # Nightly at 08:00 WIB: catches changes in the public API even when this repo is quiet.
+    - cron: "0 1 * * *"
+
+env:
+  ALLURE_VERSION: "2.29.0"
+
+jobs:
+  test:
+    name: Run API tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    env:
+      # The report is only published from the default branch, never from PRs or feature branches.
+      PUBLISH: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+      REPORT_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Run tests
+        id: tests
+        continue-on-error: true # still build and publish the report when tests fail
+        env:
+          TAGS: ${{ inputs.tags }}
+          # Optional: if these secrets exist they override the committed demo credentials.
+          ADMIN_USERNAME: ${{ secrets.BOOKER_ADMIN_USERNAME }}
+          ADMIN_PASSWORD: ${{ secrets.BOOKER_ADMIN_PASSWORD }}
+        run: |
+          args=(test -Denv=public)
+          if [ -n "$TAGS" ]; then args+=("-Dcucumber.filter.tags=$TAGS"); fi
+          ./gradlew "${args[@]}"
+
+      - name: Restore report history (trend charts)
+        if: ${{ !cancelled() && env.PUBLISH == 'true' }}
+        run: |
+          mkdir -p build/allure-results/history
+          for f in history.json history-trend.json duration-trend.json categories-trend.json retry-trend.json; do
+            curl -sfL "${REPORT_URL}history/$f" -o "build/allure-results/history/$f" \
+              || rm -f "build/allure-results/history/$f"
+          done
+
+      - name: Add CI run details to the report
+        if: ${{ !cancelled() && hashFiles('build/allure-results/*.json') != '' }}
+        run: |
+          cat > build/allure-results/executor.json <<JSON
+          {
+            "name": "GitHub Actions",
+            "type": "github",
+            "buildOrder": ${{ github.run_number }},
+            "buildName": "${{ github.workflow }} #${{ github.run_number }}",
+            "buildUrl": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "reportUrl": "${REPORT_URL}",
+            "reportName": "Restful-Booker API tests"
+          }
+          JSON
+
+      - name: Generate Allure report
+        if: ${{ !cancelled() && hashFiles('build/allure-results/*.json') != '' }}
+        run: |
+          curl -sfL "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz" \
+            | tar -xz -C "$RUNNER_TEMP"
+          "$RUNNER_TEMP/allure-${ALLURE_VERSION}/bin/allure" generate build/allure-results --clean -o build/allure-report
+
+      - name: Write job summary
+        if: ${{ !cancelled() && hashFiles('build/allure-report/widgets/summary.json') != '' }}
+        run: |
+          {
+            echo "### API test results"
+          jq -r '.statistic | "| Passed | Failed | Broken | Skipped | Total |\n|---|---|---|---|---|\n| \(.passed) | \(.failed) | \(.broken) | \(.skipped) | \(.total) | "' \
+            build/allure-report/widgets/summary.json
+          if [ "$PUBLISH" = "true" ]; then echo; echo "Full report: $REPORT_URL"; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep raw results and reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            build/allure-results
+            build/reports
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Upload report for GitHub Pages
+        if: ${{ !cancelled() && env.PUBLISH == 'true' && hashFiles('build/allure-report/index.html') != '' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/allure-report
+
+      - name: Fail the job if tests failed
+        if: ${{ steps.tests.outcome == 'failure' }}
+        run: |
+          echo "::error::API tests failed. Open the Allure report or the test-reports artifact for details."
+          exit 1
+
+  publish-report:
+    name: Publish Allure report
+    needs: test
+    # Publish even when tests fail: a failing run is exactly when the report matters most.
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main'  && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  docker:
+    name: Docker image builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build test image
+        run: docker build -t booker-api-tests .
