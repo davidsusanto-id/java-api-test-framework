@@ -9,7 +9,7 @@ on:
         description: 'Cucumber tag expression, e.g. "@smoke" (empty = full suite)'
         required: false
         default: ""
-  schedule:
+  #  schedule:
   # Nightly at 08:00 WIB: catches changes in the public API even when this repo is quiet.
 #    - cron: "0 1 * * *"
 
