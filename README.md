@@ -26,6 +26,14 @@ allure serve build/alllure-results
 
 A plain Cucumber HTML report is also written to `build/reports/cucumber/cucumber.html`.
 
+## Running in Docker
+
+```bash
+docker build -t booker-api-tests .
+docker run --rm -v "$PWD/build/allure-results:/app/build/allure-results" booker-api-tests
+docker run --rm booker-api-tests -Dcucumber.filter.tags="@smoke"  
+```
+
 ## How it is built
 
 ```mermaid
