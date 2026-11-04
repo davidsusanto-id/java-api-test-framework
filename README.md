@@ -1,7 +1,12 @@
 # Java API Test Framework
 
+[![API Tests](https://github.com/davidsusanto-id/java-api-test-framework/actions/workflows/api-tests.yml/badge.svg)](https://github.com/davidsusanto-id/java-api-test-framework/actions/workflows/api-tests.yml)
+&nbsp;**[Open the latest Allure report →](https://davidsusanto-id.github.io/java-api-test-framework/)**
+
 A Java API test automation framework built with REST Assured, Cucumber, JUnit 5, Gradle and Allure, running against the
-public [Restful-Booker](https://restful-booker.herokuapp.com/apidoc/index.html) API.
+public [Restful-Booker](https://restful-booker.herokuapp.com/apidoc/index.html) API. Scenarios run in parallel, every
+push runs the suite in GitHub Actions, and the Allure report is published to GitHub Pages so the latest results are one
+click away.
 
 ## Quick Start
 
