@@ -49,6 +49,9 @@ flowchart LR
 
 ```
 java-api-test-framework/
+├── .github/
+│   └── workflows/
+│       └── api-tests.yml                                   CI: run tests, build Allure report, publish to GitHub Pages
 ├── gradle/
 │   ├── wrapper/
 │   │   ├── gradle-wrapper.jar                              Gradle wrapper binary
@@ -108,9 +111,11 @@ java-api-test-framework/
 │           │   └── created-booking.json
 │           ├── allure.properties                           Allure results directory
 │           └── junit-platform.properties                   Cucumber plugins, default tags, parallelism
+├── .dockerignore
 ├── .gitattributes                                          Line endings for gradlew / .bat, jar as binary
 ├── .gitignore
 ├── build.gradle.kts                                        Dependencies and test task configuration
+├── Dockerfile                                              Containerised test run
 ├── gradle.properties                                       Gradle JVM and build cache settings
 ├── gradlew                                                 Gradle wrapper script (macOS / Linux)
 ├── gradlew.bat                                             Gradle wrapper script (Windows)
@@ -154,6 +159,16 @@ unexpected status codes, data mismatches and framework detects, so a red run can
 - Invalid credentials at `POST /auth` return `200` with `{"reason": "Bad credentials"}` rather than `401`.
 - Missing or invalid tokens on write operations return `403` rather than `401`.
 - The `Accept` header must be exactly `application/json`; anything else return `418`.
+
+## Publishing the report (one-time setup)
+
+1. Push the repository to GitHub with `main` as the default branch.
+2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
+3. Push a commit, or run the workflow manually from the Actions tab.
+
+Every run on `main` (pushes, the nightly schedule and manual runs) publishes the report, including when tests fail. Pull
+requests and other branches run the tests and attach the raw results as an artifact, without overwritting the published
+report. Trend charts build up over successive runs.
 
 ## Adding a test
 
