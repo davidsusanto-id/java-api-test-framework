@@ -116,6 +116,7 @@ java-api-test-framework/
 ├── .gitattributes                                          Line endings for gradlew / .bat, jar as binary
 ├── .gitignore
 ├── build.gradle.kts                                        Dependencies and test task configuration
+├── docker-compose.yml                                      Local stack: Restful-Booker plus the test suite
 ├── Dockerfile                                              Containerised test run
 ├── gradle.properties                                       Gradle JVM and build cache settings
 ├── gradlew                                                 Gradle wrapper script (macOS / Linux)
