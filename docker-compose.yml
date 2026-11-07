@@ -1,0 +1,20 @@
+# A fully local run: Restful-Booker built from its source repo, plus this test suite.
+#
+#    docker compose up --build --exit-code-from tests
+#    allure serve build/allure-results
+services:
+  restful-booker:
+    build: https://github.com/mwinteringham/restful-booker.git#main
+    ports:
+      - "3001:3001"
+
+  tests:
+    build: .
+    depends_on:
+      - restful-booker
+    environment:
+      TEST_ENV: local
+      # Inside the compose network the service is reached by name, not localhost.
+      BASE_URL: http://restful-booker:3001
+    volumes:
+      - ./build/allure-results:/app/build/allure-results
