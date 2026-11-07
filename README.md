@@ -110,7 +110,8 @@ java-api-test-framework/
 │           │   ├── booking.json
 │           │   └── created-booking.json
 │           ├── allure.properties                           Allure results directory
-│           └── junit-platform.properties                   Cucumber plugins, default tags, parallelism
+│           ├── junit-platform.properties                   Cucumber plugins, default tags, parallelism
+│           └── simplelogger.properties                     Keeps library logging quiet
 ├── .dockerignore
 ├── .gitattributes                                          Line endings for gradlew / .bat, jar as binary
 ├── .gitignore
