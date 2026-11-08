@@ -1,0 +1,43 @@
+# Weekly depedency update PRs.
+# Dependabot reads gradle/libs.versions.toml, so library upgrades arrive as one-line catalog changes.
+version: 2
+
+updates:
+  # Libraries and plugins in the Gradle build (version catalog, settings.gradle.kts)
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Asia/Jakarta"
+    open-pull-requests-limit: 5
+    groups:
+      # One PR for all minor and patch upgrades; majors still arrive one by one for review.
+      gradle-minor-and-patch:
+        update-types: [ "minor", "patch" ]
+    commit-message:
+      prefix: "deps"
+
+  # Actions used in .github/workflows (checkout, setup-java, deploy-pages, ...)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "Asia/Jakarta"
+    groups:
+      github-actions:
+        patterns: [ "*" ]
+    commit-message:
+      prefix: "ci"
+
+  # Base image in the Dockerfile (eclipse-temurin)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      timezone: "Asia/Jakarta"
+    commit-message:
+      prefix: "docker"
