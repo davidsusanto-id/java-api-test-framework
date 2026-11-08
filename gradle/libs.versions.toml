@@ -3,10 +3,10 @@ cucumber = "7.20.1"
 junit = "5.11.3"
 restassured = "5.5.0"
 allure = "2.29.0"
-jackson = "2.18.2"
-assertj = "3.26.3"
-datafaker = "2.4.2"
-slf4j = "2.0.16"
+jackson = "2.22.4"
+assertj = "3.27.7"
+datafaker = "2.7.0"
+slf4j = "2.0.20"
 
 [libraries]
 # BOMs keep the versions of each family aligned
