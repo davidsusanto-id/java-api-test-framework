@@ -4,7 +4,7 @@
 #   docker run --rm -v "$PWD/build/allure-results:/app/build/allure-results" booker-api-tests
 #   docker run --rm booker-api-tests -Dcucumber.filter.tags="@smoke"
 
-FROM eclipse-temurin:21-jdk-jammy
+FROM eclipse-temurin:25-jdk-jammy
 
 WORKDIR /app
 
