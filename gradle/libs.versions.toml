@@ -1,7 +1,7 @@
 [versions]
 cucumber = "7.20.1"
 junit = "5.11.3"
-restassured = "5.5.0"
+restassured = "6.3.0"
 allure = "2.29.0"
 jackson = "2.18.2"
 assertj = "3.26.3"
