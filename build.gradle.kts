@@ -1,6 +1,6 @@
 plugins {
     java
-    id("io.qameta.allure") version "3.0.2"
+    id("io.qameta.allure") version "4.3.0"
 }
 
 group = "com.davidsusanto"
