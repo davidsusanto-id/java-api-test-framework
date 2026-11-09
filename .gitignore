@@ -16,3 +16,6 @@ allure-results/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local secrets
+*.secrets.properties
